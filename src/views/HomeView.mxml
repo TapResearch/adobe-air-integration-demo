@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="MainView">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import com.tapresearch.ane.ReceiveRewardEvent;
+			import com.tapresearch.ane.TRPlacement;
+			import com.tapresearch.ane.TapResearch;
+			
+			private var placement:TRPlacement;
+			
+			protected function btn_init_clickHandler(event:MouseEvent):void
+			{
+				if (!TapResearch.instance.isSupported)  {
+					return;
+				}
+				var apiToken:String;
+				apiToken= API_TOKEN;
+				
+				trace(Capabilities.os);
+				TapResearch.instance.configure(apiToken);		
+				TapResearch.instance.setUniqueUserIdentifier(UNIQUE_USER_IDENTIFIER);
+				
+				TapResearch.instance.addEventListener(TapResearch.SURVEY_WALL_OPENED, onSurveyModalOpened);
+				TapResearch.instance.addEventListener(TapResearch.SURVEY_WALL_DISMISSED, onSurveyModalClosed);
+				TapResearch.instance.addEventListener(TapResearch.RECEIVE_REWARD, onReceiveReward);
+				TapResearch.instance.addEventListener(TapResearch.PLACEMENT_READY, onPlacementReady);
+			}
+			
+			protected function onSurveyModalOpened(event:Event):void
+			{
+				trace("onSurveyModalOpened");
+				var p:TRPlacement = TRPlacement(event);
+				trace(p.placementIdentifier);
+			}
+			
+			protected function onSurveyModalClosed(event:Event):void
+			{
+				trace("onSurveyModalClosed");
+				var p:TRPlacement = TRPlacement(event);
+				trace(p.placementIdentifier);
+			}
+			
+			
+			protected function onReceiveReward(event:Event):void
+			{
+				var rewardEvent:ReceiveRewardEvent = ReceiveRewardEvent(event);
+				trace("onReceiveReward ");
+				trace(rewardEvent.rewardAmount);
+				trace(rewardEvent.transactionIdentifier);
+				trace(rewardEvent.currencyName);
+				trace(rewardEvent.offerIdentifier);
+				trace(rewardEvent.eventType);
+			}	
+			
+			protected function btn_survey_clickHandler(event:MouseEvent):void
+			{
+				TapResearch.instance.initPlacement(PLACEMENT_IDENTIFIER);
+			}
+			
+			protected function onPlacementReady(event:Event):void
+			{
+				placement = TRPlacement(event);
+				trace("onPlacementReady");
+				trace(placement.placementIdentifier);
+			}
+			
+			protected function btn_survey_wall_clickHandler(event:MouseEvent):void
+			{
+				placement.showSurveyWall();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">       
+		<s:Label text="Hello, World!"/>
+		<s:Button label="init" id="btn_init" click="btn_init_clickHandler(event)"/>  
+		
+		<s:Button label="Survey" id="btn_survey" click="btn_survey_clickHandler(event)"/>
+		
+		<s:Button label="Survey Wall" id="btn_survey_wall" click="btn_survey_wall_clickHandler(event)"/>
+		
+	</s:VGroup> 
+</s:View>
