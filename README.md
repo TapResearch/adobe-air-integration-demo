@@ -8,4 +8,4 @@
 * Grab a placement identifier from the [Supplier Dashboard](https://www.tapresearch.com/supplier_dashboard/overview) and replace the `PLACEMENT_IDENTIFIER` variable in `HomeView.mxml`
 * Build the app as an iOS / Android application
 
-[TapResearch AdobeAIR SDK integration guide](https://www.tapresearch.com/docs/adobe_air_integration_guide).
+[TapResearch AdobeAIR SDK integration guide](https://www.tapresearch.com/docs/adobe-air-integration-guide).
