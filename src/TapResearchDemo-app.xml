@@ -324,8 +324,5 @@
 		]]></InfoAdditions>
         <requestedDisplayResolution>high</requestedDisplayResolution>
     </iPhone>
-<extensions>
-        <extensionID>com.tapresearch.ane</extensionID>
-        <extensionID>com.tapresearch.gps</extensionID>
-    </extensions>
+
 </application>
