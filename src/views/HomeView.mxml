@@ -64,9 +64,13 @@
 			
 			protected function onPlacementReady(event:Event):void
 			{
-				placement = TRPlacement(event);
-				trace("onPlacementReady");
-				trace(placement.placementIdentifier);
+				if (placement.placementCode != TRPlacement.PLACEMENT_CODE_SDK_NOT_READY) {
+					placement = TRPlacement(event);
+					trace("onPlacementReady");
+					trace(placement.placementIdentifier);
+				} else {
+					trace("SDK is not ready");
+				}
 			}
 			
 			protected function btn_survey_wall_clickHandler(event:MouseEvent):void
